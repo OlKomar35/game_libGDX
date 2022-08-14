@@ -19,17 +19,14 @@ public class MyGdxGame extends ApplicationAdapter {
   public void create() {
     batch = new SpriteBatch();
     img = new Texture("games_hero.png");
-    x = Gdx.graphics.getWidth() / 2 - img.getWidth() / 2;
-    y = Gdx.graphics.getHeight() / 2 - img.getHeight() / 2;
-
-  }
+    }
 
   @Override
   public void render() {
     ScreenUtils.clear(1, 1, 1, 1);
 
-     x =  Gdx.input.getX() - img.getWidth() / 2;
-     y = Gdx.graphics.getHeight() - Gdx.input.getY() - img.getHeight() / 2;
+    x = Gdx.input.getX() - img.getWidth() / 2;
+    y = Gdx.graphics.getHeight() - Gdx.input.getY() - img.getHeight() / 2;
 
     batch.begin();
     batch.draw(img, x, y);
