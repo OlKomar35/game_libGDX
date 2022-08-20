@@ -4,38 +4,40 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-  SpriteBatch batch;
-  Texture img;
-  float x;
-  float y;
+  private SpriteBatch batch;
+  private AnimationGame animationGame;
 
   @Override
   public void create() {
     batch = new SpriteBatch();
-    img = new Texture("games_hero.png");
-    }
+    animationGame = new AnimationGame("skeleton.png", 9, 4);
+  }
 
   @Override
   public void render() {
     ScreenUtils.clear(1, 1, 1, 1);
-
-    x = Gdx.input.getX() - img.getWidth() / 2;
-    y = Gdx.graphics.getHeight() - Gdx.input.getY() - img.getHeight() / 2;
-
+    animationGame.setTime(Gdx.graphics.getDeltaTime());
+    float x = Gdx.input.getX() - animationGame.getFrame().getRegionWidth() / 2;
+    float y= Gdx.graphics.getHeight()-Gdx.input.getY()-animationGame.getFrame().getRegionHeight()/2;
+    if(!animationGame.getFrame().isFlipX()){animationGame.getFrame().flip(true,false);}
     batch.begin();
-    batch.draw(img, x, y);
+    batch.draw(animationGame.getFrame(), 5, 5);
+    batch.draw(animationGame.getFrame(), 150, 150);
     batch.end();
   }
 
   @Override
   public void dispose() {
     batch.dispose();
-    img.dispose();
+    animationGame.dispose();
   }
 }
